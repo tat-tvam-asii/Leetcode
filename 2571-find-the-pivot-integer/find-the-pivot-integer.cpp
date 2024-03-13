@@ -1,9 +1,7 @@
 class Solution {
 public:
     int pivotInteger(int n) {
-        for(int i=1;i<=n;i++){
-            if(i*(i+1) - i == n*(n+1)/2) return i;
-        }
-        return -1;
+        int sum = n * (n + 1) / 2, x = sqrt(sum);
+        return x * x == sum ? x : -1;
     }
 };
