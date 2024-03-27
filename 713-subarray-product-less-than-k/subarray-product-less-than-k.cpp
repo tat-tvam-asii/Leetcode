@@ -8,7 +8,7 @@ public:
             while(i <=j && pro >= k){
                 pro /= nums[i++];
             }
-            if(i <= j) ans += j-i+1;
+            ans += j-i+1;
             j++;
         }
         return ans;
