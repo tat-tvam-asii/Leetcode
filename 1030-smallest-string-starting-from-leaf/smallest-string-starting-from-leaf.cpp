@@ -12,18 +12,17 @@
 class Solution {
 public:
     void dfs(TreeNode* root,string& ans,string tmp){
-        tmp += 'a'+root->val;
+        tmp = char('a'+ root->val) + tmp;
         if(root->left) dfs(root->left,ans,tmp);
         if(root->right) dfs(root->right,ans,tmp);
         if(!root->left && !root->right){
-            reverse(tmp.begin(),tmp.end());
             ans = min(ans,tmp);
             return;
         }
     }
 
     string smallestFromLeaf(TreeNode* root) {
-        string ans = string(8500,'z');
+        string ans = "~";
         dfs(root,ans,"");
         return ans;
     }
