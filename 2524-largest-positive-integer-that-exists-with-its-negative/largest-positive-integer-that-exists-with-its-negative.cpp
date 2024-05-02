@@ -1,11 +1,22 @@
-class Solution {
+class Solution 
+{
 public:
-    int findMaxK(vector<int>& nums) {
-        sort(nums.rbegin(),nums.rend());
-        unordered_map<int,int> mp;
-        for(int i : nums) mp[i]++;
-        for(int i : nums){
-            if(mp[-i]) return i;
+    int findMaxK(vector<int>& nums) 
+    {
+        sort(nums.begin(), nums.end());
+        int low=0, high=nums.size()-1;
+        
+        while(low < high)
+        {
+            if((nums[low] + nums[high]) == 0)
+            {
+                return  nums[high];
+            }
+            
+            else if((nums[low] + nums[high]) < 0)
+                low++;
+            
+            else high--;
         }
         return -1;
     }
