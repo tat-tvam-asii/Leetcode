@@ -1,32 +1,21 @@
 class Solution {
 public:
-    void solve(vector<string>&ans,int i,string s,string op){
+    void solve(vector<string>&ans,int i,string s){
         if(i == s.length()){
-            ans.push_back(op);
+            ans.push_back(s);
             return;
         }
-        string op1 = op,op2 = op;
-        while(isdigit(s[i])){
-            op1 += s[i];
-            op2 += s[i];
-            i++;
+        solve(ans,i+1,s);
+        if(isalpha(s[i])){
+            s[i] ^= (1 << 5);
+            solve(ans,i+1,s);
         }
-        if(i == s.length()){
-            ans.push_back(op1);
-            return;
-        }
-        op1 += tolower(s[i]);
-        op2 += toupper(s[i]);
-        i++;
-        solve(ans,i,s,op1);
-        solve(ans,i,s,op2);
     }
 
     vector<string> letterCasePermutation(string s) {
-        string op = "";
         vector<string> ans;
         int i = 0;
-        solve(ans,i,s,op);
+        solve(ans,i,s);
         return ans;
     }
 };
