@@ -4,24 +4,25 @@ public:
 
     int numDecodings(string s) {
         int l = s.length();
-        vector<int> dp(l+1);
-        dp[l] = 1;
+        int dp = 0,dp1 = 1,dp2 = 0;
         for(int i = l-1;i >= 0;i--){
-            if(s[i] == '0') dp[i] = 0;
+            if(s[i] == '0') dp = 0;
             else{
-                dp[i] = dp[i+1];
-                if(s[i] == '*') dp[i] = (9ll*dp[i]) % mod;
+                dp = dp1;
+                if(s[i] == '*') dp = (9ll*dp) % mod;
                 if(i < l-1 && s[i+1] == '*'){
-                    if(s[i] == '1') dp[i] = (dp[i] + 9ll*dp[i+2]) % mod;
-                    else if(s[i] == '2') dp[i] = (dp[i] + 6ll*dp[i+2]) % mod;
-                    else if(s[i] == '*') dp[i] = (dp[i] + 15ll*dp[i+2]) % mod;
+                    if(s[i] == '1') dp = (dp + 9ll*dp2) % mod;
+                    else if(s[i] == '2') dp = (dp + 6ll*dp2) % mod;
+                    else if(s[i] == '*') dp = (dp + 15ll*dp2) % mod;
                 }
                 else if(i < l-1 && (s[i] == '*' || s[i] == '1' || s[i] == '2'&&s[i+1] < '7')){
-                    dp[i] = (dp[i] + dp[i+2]) % mod;
-                    if(s[i] == '*' && s[i+1] < '7') dp[i] = (dp[i] + dp[i+2]) % mod;
+                    dp = (dp + dp2) % mod;
+                    if(s[i] == '*' && s[i+1] < '7') dp = (dp + dp2) % mod;
                 }
             }
+            dp2 = dp1;
+            dp1 = dp;
         }
-        return dp[0];
+        return dp;
     }
 };
