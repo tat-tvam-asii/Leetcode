@@ -2,15 +2,13 @@ class Solution {
 public:
     int numDecodings(string s) {
         int l = s.length();
-        vector<int> dp(l+1);
-        dp[l] = 1;
+        int p = 1,pp;
         for(int i = l-1;i >= 0;i--){
-            if(s[i] == '0') dp[i] = 0;
-            else{
-                dp[i] = dp[i+1];
-                if(i < l-1 && (s[i] == '1' || s[i] == '2'&&s[i+1] < '7')) dp[i] += dp[i+2];
-            }
+            int cur = s[i] == '0' ? 0 : p;
+            if(i < l-1 && (s[i] == '1' || s[i] == '2'&&s[i+1] < '7')) cur += pp;
+            pp = p;
+            p = cur;
         }
-        return dp[0];
+        return p;
     }
 };
