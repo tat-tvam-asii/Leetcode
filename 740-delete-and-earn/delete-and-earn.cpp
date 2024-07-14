@@ -3,12 +3,14 @@ public:
     int deleteAndEarn(vector<int>& nums) {
         unordered_map<int,int> mp;
         for(int i : nums) mp[i]++;
-        vector<int> dp(1e4+1,0);
+        int dp = 0,dp1 = 0,dp2 = 0;
         int mx = *max_element(nums.begin(),nums.end());
-        if(mp[1]) dp[1] = mp[1];
+        if(mp[1]) dp1 = mp[1];
         for(int i = 2;i <= mx;i++){
-            dp[i] = max(dp[i-1],mp[i]*i + dp[i-2]);
+            dp = max(dp1,mp[i]*i + dp2);
+            dp2 = dp1;
+            dp1 = dp;
         }
-        return dp[mx];
+        return dp1;
     }
 };
