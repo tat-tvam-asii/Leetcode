@@ -11,7 +11,7 @@ public:
         stack<pair<int, int>> s1, s2;
         for (int i = 0; i < n; ++i) {
             int cnt = 1;
-            while (!s1.empty() && (s1.top().first) > nums[i]) {
+            while (!s1.empty() && (s1.top().first) >= nums[i]) {
                 cnt += s1.top().second;
                 s1.pop();
             }
