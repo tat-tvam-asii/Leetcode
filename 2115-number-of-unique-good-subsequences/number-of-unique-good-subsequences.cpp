@@ -1,26 +1,27 @@
-#define ll long long
 int mod = 1e9 + 7;
 
 class Solution {
 public:
     int numberOfUniqueGoodSubsequences(string s) {
-        int n = s.length(), ans = 0, first = n, zero = 0;
+        int n = s.length(), ans = 0,lastone = -1,lastzero = -1;
         
-        vector<vector<int>> dp(2,vector<int>(n+1, 0));    
-        
-        for(int i=n-1; i>=0; --i){
-            if(s[i]=='0') {
-                zero = 1;
-                dp[0][i] = (1ll*dp[0][i+1] + 1ll + dp[1][i+1])%mod;
-                dp[1][i] = dp[1][i+1];
-            }
-            else {
-                dp[1][i] = (1ll*dp[0][i+1] + 1ll + dp[1][i+1])%mod;
-                dp[0][i] = dp[0][i+1];
-            }
-        }
-        
-        return (dp[1][0] + zero)%mod;
-                
+        vector<int> dp(n+1,0); 
+        int i = 0;   
+        for(i = 0;i < n;i++){
+            if(s[i] == '0') ans = 1;
+            else break;
+        }  
+        if(i < n) dp[++i] = 1;
+        for(int j = i;j < n;j++){
+            if(s[j] == '0') ans = 1;
+            dp[j+1] = dp[j]*2 % mod;
+            if(s[j] == '0' && lastzero >= 0) dp[j+1] = (dp[j+1] - dp[lastzero] + mod) % mod;
+            if(s[j] == '1' && lastone >= 0) dp[j+1] = (dp[j+1] - dp[lastone] + mod) % mod;
+            if(s[j] == '0') lastzero = j;
+            else lastone = j;
+            dp[j+1] %= mod;
+        }     
+        ans += dp[n];
+        return ans; 
     }
 };
