@@ -1,18 +1,16 @@
 class Solution {
 public:
-    int solve(string& s,int i,bool flag,vector<vector<int>>& dp){
-        if(i == s.length()) return 0;
-        if(dp[i][flag] != -1) return dp[i][flag];
-        if(flag) return dp[i][flag] = !(s[i] == '1') + solve(s,i+1,true,dp);
-        else return dp[i][flag] = (s[i] == '1') + min(solve(s,i+1,false,dp),solve(s,i+1,true,dp));
-    }
 
     int minFlipsMonoIncr(string s) {
-        int i = 0;
-        for(i = 0;i < s.length();i++){
+        int i = 0,l = s.length();
+        for(i = 0;i < l;i++){
             if(s[i] == '1') break;
         }
-        vector<vector<int>> dp(s.length(),vector<int>(2,-1));
-        return min(solve(s,i,false,dp),solve(s,i,true,dp));
+        vector<vector<int>> dp(l+1,vector<int>(2,0));
+        for(int i = l-1;i >= 0;i--){
+            dp[i][1] = (s[i] != '1') + dp[i+1][1];
+            dp[i][0] = (s[i] == '1') + min(dp[i+1][0],dp[i+1][1]);
+        }
+        return min(dp[0][0],dp[0][1]);
     }
 };
