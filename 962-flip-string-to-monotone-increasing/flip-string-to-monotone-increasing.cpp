@@ -6,11 +6,13 @@ public:
         for(i = 0;i < l;i++){
             if(s[i] == '1') break;
         }
-        vector<vector<int>> dp(l+1,vector<int>(2,0));
+        int prev_one = 0,curr_one,prev_zero = 0,curr_zero;
         for(int i = l-1;i >= 0;i--){
-            dp[i][1] = (s[i] != '1') + dp[i+1][1];
-            dp[i][0] = (s[i] == '1') + min(dp[i+1][0],dp[i+1][1]);
+            curr_one = (s[i] != '1') + prev_one;
+            curr_zero = (s[i] == '1') + min(prev_zero,prev_one);
+            prev_one = curr_one;
+            prev_zero = curr_zero;
         }
-        return min(dp[0][0],dp[0][1]);
+        return min(curr_one,curr_zero);
     }
 };
