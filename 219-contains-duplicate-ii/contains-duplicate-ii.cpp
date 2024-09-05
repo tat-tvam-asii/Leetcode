@@ -4,12 +4,13 @@ public:
         unordered_map<int,int> mp;
         int i = 0,j = 0,n = nums.size();
         while(j < n){
-            while(mp[nums[j]] && i < j){
-                if(nums[i] == nums[j] && j - i <= k) return true;
-                else i++;
-            }
+            if(mp[nums[j]]) return true;
             mp[nums[j]]++;
             j++;
+            if(j - i > k){
+                mp[nums[i]]--;
+                i++;
+            }
         }
         return false;
     }
