@@ -4,7 +4,7 @@ public:
         int i = 0,cost = 0,mxlen = 0;
         for(int j = 0;j < s.length();j++){
             cost += abs(s[j] - t[j]);
-            while(cost > maxCost && i <= j){
+            while(cost > maxCost){
                 cost -= abs(s[i] - t[i]);
                 i++;
             }
