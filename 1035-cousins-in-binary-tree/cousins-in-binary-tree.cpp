@@ -12,22 +12,28 @@
 class Solution {
 public:
     bool isCousins(TreeNode* root, int x, int y) {
-        queue<pair<TreeNode*,TreeNode*>> q;
-        q.push({root,root});
+        queue<TreeNode*> q;
+        q.push(root);
         while(!q.empty()){
             int s = q.size();
-            bool a = false,b = false;
+            TreeNode *parentX = NULL,*parentY = NULL;
             while(s--){
-                TreeNode *node = q.front().first,*parent = q.front().second;
+                TreeNode *node = q.front();
                 q.pop();
-                if(node->val == x) a = true;
-                if(node->val == y) b = true;
                 TreeNode *Left = node->left,*Right = node->right;
-                if(Left && Right && ((Left->val == x && Right->val == y) || (Left->val == y && Right->val == x))) return false;
-                if(Left) q.push({Left,node});
-                if(Right) q.push({Right,node});
+                if(Left){
+                    if(Left -> val == x) parentX = node;
+                    else if(Left -> val == y) parentY = node;
+                    q.push(Left);
+                }
+                if(Right){
+                    if(Right -> val == x) parentX = node;
+                    else if(Right -> val == y) parentY = node;
+                    q.push(Right);
+                }
             }
-            if(a && b) return true;
+            if(parentX && parentY) return parentX != parentY;
+            if(parentX || parentY) return false;
         }
         return false;
     }
