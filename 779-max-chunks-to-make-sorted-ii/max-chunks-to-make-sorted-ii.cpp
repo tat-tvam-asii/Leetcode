@@ -1,17 +1,23 @@
 class Solution {
 public:
     int maxChunksToSorted(vector<int>& arr) {
-        vector<int> temp = arr;
-        sort(temp.begin(),temp.end());
-        int n = temp.size();
-        vector<long long> pre(n);
-        pre[0] = temp[0];
-        for(int i = 1;i < n;i++) pre[i] = temp[i] + pre[i-1];
-        long long ans = 0,sum = 0;
-        for(int i = 0;i < n;i++){
-            sum += arr[i];
-            if(sum == pre[i]) ans++;
+        int n = arr.size();
+        vector<int> prefixMax = arr;
+        vector<int> suffixMin = arr;
+
+        for (int i = 1; i < n; i++) {
+            prefixMax[i] = max(prefixMax[i - 1], prefixMax[i]);
         }
-        return ans;
+
+        for (int i = n - 2; i >= 0; i--) {
+            suffixMin[i] = min(suffixMin[i + 1], suffixMin[i]);
+        }
+
+        int chunks = 1;
+        for (int i = 1; i < n; i++) {
+            if (suffixMin[i] >= prefixMax[i - 1]) chunks++;
+        }
+
+        return chunks;
     }
 };
