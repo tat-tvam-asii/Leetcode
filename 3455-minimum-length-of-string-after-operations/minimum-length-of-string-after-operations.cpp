@@ -7,10 +7,8 @@ public:
             cnt[c-'a']++;
         }
         for(int i : cnt){
-            while(i >= 3){
-                i -= 2;
-                l -= 2;
-            }
+            if(i % 2) l -= (i - 1);
+            else if(i) l -= (i - 2);
         }
         return l;
     }
