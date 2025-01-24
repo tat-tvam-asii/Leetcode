@@ -1,7 +1,6 @@
 class Solution {
 public:
     int nextGreaterElement(int n) {
-        if(n < 12) return -1;
         string s = to_string(n);
         int l = s.length();
         for(int i = l-2;i >= 0;i--){
