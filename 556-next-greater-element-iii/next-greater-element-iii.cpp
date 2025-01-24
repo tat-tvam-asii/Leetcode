@@ -14,6 +14,6 @@ public:
             }
         }
         long ans = stol(s);
-        return ans == n || ans > INT_MAX ? -1 : ans;
+        return ans > INT_MAX ? -1 : ans;
     }
 };
