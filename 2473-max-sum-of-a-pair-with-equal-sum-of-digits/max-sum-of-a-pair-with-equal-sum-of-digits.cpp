@@ -1,8 +1,12 @@
 class Solution {
 public:
     int digit_sum(int n){
-        if(n == 0) return 0;
-        return n % 10 + digit_sum(n / 10);
+        int sum = 0;
+        while(n){
+            sum += n % 10;
+            n /= 10;
+        }
+        return sum;
     }
 
     int maximumSum(vector<int>& nums) {
