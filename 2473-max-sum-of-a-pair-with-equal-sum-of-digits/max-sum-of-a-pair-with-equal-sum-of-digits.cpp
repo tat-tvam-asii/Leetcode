@@ -6,17 +6,22 @@ public:
     }
 
     int maximumSum(vector<int>& nums) {
-        vector<priority_queue<int>> vpq(82);
+        vector<vector<int>> vv(82);
         for(int n : nums){
-            vpq[digit_sum(n)].push(n);
+            vv[digit_sum(n)].push_back(n);
         }
         int mx = -1;
-        for(auto pq : vpq){
-            if(pq.size() < 2) continue;
-            int a,b;
-            a = pq.top(),pq.pop();
-            b = pq.top();
-            mx = max(mx,a + b);
+        for(auto v : vv){
+            if(v.size() < 2) continue;
+            int mx1 = 0,mx2 = 0;
+            for(int n : v){
+                if(n > mx1){
+                    mx2 = mx1;
+                    mx1 = n;
+                }
+                else if(n > mx2) mx2 = n;
+            }
+            mx = max(mx,mx1 + mx2);
         }
         return mx;
     }
