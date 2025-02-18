@@ -2,15 +2,15 @@ class Solution {
 public:
     bool solve(string& pattern,vector<int>& isUsed,string& temp){
         int n = pattern.size();
-        if(temp.size() == n+1){
-            for(int i = 1;i <= n;i++){
-                if(pattern[i-1] == 'I' && temp[i] <= temp[i-1]) return false;
-                if(pattern[i-1] == 'D' && temp[i] >= temp[i-1]) return false;
-            }
-            return true;
-        }
+        if(temp.size() == n+1) return true;
+        
         for(int i = 1;i <= n+1;i++){
             if(isUsed[i]) continue;
+            if(temp.size()){
+                int sz = temp.size() - 1;
+                if(pattern[sz] == 'I' && i <= temp.back() - '0') continue;
+                if(pattern[sz] == 'D' && i >= temp.back() - '0') continue;
+            }
             isUsed[i] = 1;
             temp.push_back('0' + i);
             if(solve(pattern,isUsed,temp)) return true;
