@@ -17,7 +17,7 @@ public:
             sz++;
             temp = temp->next;
         }
-        if(sz == 1) return temp;
+        if(sz == 1) return NULL;
         if(sz == n) return head->next; 
         temp = head;
         for(int i = 0;i < sz-n-1;i++) temp = temp->next;
