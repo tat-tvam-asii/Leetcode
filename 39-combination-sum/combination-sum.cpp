@@ -8,7 +8,7 @@ public:
             return;
         }
         if(sum > target || ind == candidates.size()) return;
-        if(candidates[ind] > target) return;
+        if(sum + candidates[ind] > target) return;
         subseq.push_back(candidates[ind]);
         sum += candidates[ind];
         solve(ans,subseq,st,candidates,target,sum,ind);
