@@ -8,6 +8,7 @@ public:
             return;
         }
         if(sum > target || ind == candidates.size()) return;
+        if(candidates[ind] > target) return;
         subseq.push_back(candidates[ind]);
         sum += candidates[ind];
         solve(ans,subseq,st,candidates,target,sum,ind);
@@ -21,6 +22,7 @@ public:
         vector<vector<int>> ans;
         vector<int> subseq;
         set<vector<int>> st;
+        sort(candidates.begin(),candidates.end());
         solve(ans,subseq,st,candidates,target,0,0);
         return ans;
     }
