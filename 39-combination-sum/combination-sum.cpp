@@ -7,12 +7,11 @@ public:
             st.insert(subseq);
             return;
         }
-        if(sum > target || ind == candidates.size()) return;
+        if(ind == candidates.size()) return;
         if(sum + candidates[ind] > target) return;
         subseq.push_back(candidates[ind]);
         sum += candidates[ind];
         solve(ans,subseq,st,candidates,target,sum,ind);
-        solve(ans,subseq,st,candidates,target,sum,ind+1);
         subseq.pop_back();
         sum -= candidates[ind];
         solve(ans,subseq,st,candidates,target,sum,ind+1);
