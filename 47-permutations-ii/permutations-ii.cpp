@@ -1,21 +1,30 @@
 class Solution {
 public:
-    void solve(vector<int> nums,vector<vector<int>>& ans,int i){
-        if(i == nums.size() - 1){
-            ans.push_back(nums);
+
+    void backtrack(unordered_map<int, int>& counter, vector<int>& comb, int N,
+                   vector<vector<int>>& results) {
+        if (comb.size() == N) {
+            results.push_back(comb);
             return;
         }
-        for(int j = i;j < nums.size();j++){
-            if(j != i && nums[j] == nums[i]) continue;
-            swap(nums[i],nums[j]);
-            solve(nums,ans,i+1);
+        for (auto& item : counter) {
+            int num = item.first;
+            int count = item.second;
+            if (count == 0) continue;
+            comb.push_back(num);
+            counter[num]--;
+            backtrack(counter, comb, N, results);
+            comb.pop_back();
+            counter[num]++;
         }
     }
 
     vector<vector<int>> permuteUnique(vector<int>& nums) {
-        vector<vector<int>> ans;
-        sort(nums.begin(),nums.end());
-        solve(nums,ans,0);
-        return ans;
+        vector<vector<int>> results;
+        unordered_map<int, int> counter;
+        for (int num : nums) counter[num]++;
+        vector<int> comb;
+        backtrack(counter, comb, nums.size(), results);
+        return results;
     }
 };
