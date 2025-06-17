@@ -3,11 +3,8 @@ public:
 
     bool check(int I,int J,int n,vector<string>& temp){
         for(int i = I - 1,j = J - 1;i >= 0 && j >= 0;i--,j--) if(temp[i][j] == 'Q') return true;
-        for(int i = I + 1,j = J + 1;i < n && j < n;i++,j++) if(temp[i][j] == 'Q') return true;
-        for(int i = I + 1,j = J - 1;i < n && j >= 0;i++,j--) if(temp[i][j] == 'Q') return true;
         for(int i = I - 1,j = J + 1;i >= 0 && j < n;i--,j++) if(temp[i][j] == 'Q') return true;
         for(int i = 0;i < I;i++) if(temp[i][J] == 'Q') return true;
-        for(int i = I + 1;i < n;i++) if(temp[i][J] == 'Q') return true;
         return false;
     }
 
