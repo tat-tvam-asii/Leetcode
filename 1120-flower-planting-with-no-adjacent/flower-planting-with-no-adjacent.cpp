@@ -7,14 +7,12 @@ public:
         return true;
     }
 
-    bool solve(vector<vector<int>>& adj,vector<int>& ans,vector<int>& color,int n,int ind){
+    bool solve(vector<vector<int>>& adj,vector<int>& color,int n,int ind){
         if(ind == n) return true;
         for(int i = 1;i <= 4;i++){
             if(check(adj[ind],color,i)){
-                ans.push_back(i);
                 color[ind] = i;
-                if(solve(adj,ans,color,n,ind+1)) return true;;
-                ans.pop_back();
+                if(solve(adj,color,n,ind+1)) return true;
                 color[ind] = 0;
             }
         }
@@ -28,9 +26,8 @@ public:
             adj[v1].push_back(v2);
             adj[v2].push_back(v1);
         }
-        vector<int> ans;
         vector<int> color(n,0);
-        int a = solve(adj,ans,color,n,0);
-        return ans;
+        solve(adj,color,n,0);
+        return color;
     }
 };
