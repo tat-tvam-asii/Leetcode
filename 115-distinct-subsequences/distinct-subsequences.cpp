@@ -1,18 +1,17 @@
 class Solution {
 public:
-    int solve(string& s,string& t,int i,int j,vector<vector<int>>& dp){
-        if(j == t.length()){
-            return 1;
-        }
-        if(i == s.length()) return 0;
-        if(dp[i][j] != -1) return dp[i][j];
-        dp[i][j] = solve(s,t,i+1,j,dp);
-        if(s[i] == t[j]) dp[i][j] += solve(s,t,i+1,j+1,dp);
-        return dp[i][j];
-    }
-
+    
     int numDistinct(string s, string t) {
-        vector<vector<int>> dp(s.length(),vector<int>(t.length(),-1));
-        return solve(s,t,0,0,dp);
+        int m = s.length(),n = t.length();
+        vector<unsigned long long> prev(n+1,0),curr(n+1,0);
+        prev[n] = curr[n] = 1;
+        for(int i = m-1;i >= 0;i--){
+            for(int j = n-1;j >= 0;j--){
+                curr[j] = prev[j];
+                if(s[i] == t[j]) curr[j] += prev[j+1];
+            }
+            prev = curr;
+        }
+        return prev[0];
     }
 };
