@@ -4,9 +4,9 @@ public:
         int m = s.length(),n = p.length();
         vector<vector<bool>> dp(m+1,vector<bool>(n+1,false));
         dp[0][0] = true;
-        for(int j = 2;j <= n;j++){
-            if(p[j-1] == '*') dp[0][j] = dp[0][j-2];
-            else dp[0][j] = false;
+        for(int j = 2;j <= n;j+=2){
+            if(p[j-1] == '*') dp[0][j] = true;
+            else break;
         }
 
         for(int i = 1;i <= m;i++){
