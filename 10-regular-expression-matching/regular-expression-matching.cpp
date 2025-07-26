@@ -12,12 +12,12 @@ public:
         for(int i = 1;i <= m;i++){
             for(int j = 1;j <= n;j++){
                 if(s[i-1] == p[j-1] || p[j-1] == '.'){
-                    if(j < p.length() && p[j] == '*') dp[i][j] = dp[i-1][j-1] || dp[i-1][j] || dp[i][j-1];
+                    if(j < n && p[j] == '*') dp[i][j] = dp[i-1][j-1] || dp[i-1][j] || dp[i][j-1];
                     else dp[i][j] = dp[i-1][j-1];
                 }
                 else{
                     if(p[j-1] == '*') dp[i][j] = dp[i][j-1];
-                    else if(j < p.length() && p[j] == '*') dp[i][j] = dp[i][j-1];
+                    else if(j < n && p[j] == '*') dp[i][j] = dp[i][j-1];
                 }
             }
         }
